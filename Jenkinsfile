@@ -13,8 +13,8 @@ node ('node_1'){
   
   stage 'Package Image'
   //Packaging the image into a Docker image
-  sh 'sudo docker ps'
-  sh 'sudo docker build -t sagydocker/game-of-life'
+  //sh 'sudo docker ps'
+  //sh 'sudo docker build -t sagydocker/game-of-life'
   def pkg = docker.build ('sagydocker/game-of-life', '.')
 
   

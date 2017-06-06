@@ -2,9 +2,9 @@
 node ('ec2'){
   stage 'Pull from SCM'  
   //Passing the pipeline the ID of my GitHub credentials and specifying the repo for my app
-  git credentialsId: '32f2c3c2-c19e-431a-b421-a4376fce1186', url: 'https://github.com/lavaliere/game-of-life.git'
-  stage 'Test Code'  
-  sh 'mvn install'
+  git credentialsId: '32f2c3c2-c19e-431a-b421-a4376fce1186', url: 'https://github.com/sagyvm/game-of-life.git'
+  //stage 'Test Code'  
+  //sh 'mvn install'
 
   stage 'Build app' 
   //Running the maven build and archiving the war
@@ -13,7 +13,7 @@ node ('ec2'){
   
   stage 'Package Image'
   //Packaging the image into a Docker image
-  def pkg = docker.build ('lavaliere/game-of-life', '.')
+  def pkg = docker.build ('sagydocker/game-of-life', '.')
 
   
   stage 'Push Image to DockerHub'
@@ -57,7 +57,7 @@ node ('ec2'){
         timeout(time: 5, unit: 'MINUTES') {
             waitUntil {
                 try {
-                    sh "curl http://52.200.92.100:80"
+                    sh "curl http://34.211.112.138:80"
                     return true
                 } catch (Exception e) {
                     return false
@@ -65,7 +65,7 @@ node ('ec2'){
             }
         }
         echo "gameoflife#${env.BUILD_NUMBER} SUCCESSFULLY deployed to http://52.200.92.100:80"
-        input 'Does staging http://52.200.92.100:80 look okay?'
+        input 'Does staging http://34.211.112.138:80 look okay?'
   
   stage 'Deploy to ECS'
   //Deploy image to production in ECS
@@ -98,14 +98,14 @@ node ('ec2'){
         timeout(time: 5, unit: 'MINUTES') {
             waitUntil {
                 try {
-                    sh "curl http://52.202.249.4:80"
+                    sh "curl http://54.213.85.122:80"
                     return true
                 } catch (Exception e) {
                     return false
                 }
             }
         }
-        echo "gameoflife#${env.BUILD_NUMBER} SUCCESSFULLY deployed to http://52.202.249.4:80"
+        echo "gameoflife#${env.BUILD_NUMBER} SUCCESSFULLY deployed to http://54.213.85.122:80"
     }
   }
 }

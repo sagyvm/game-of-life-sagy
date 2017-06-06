@@ -2,7 +2,7 @@
 node ('node_1'){
   stage 'Pull from SCM'  
   //Passing the pipeline the ID of my GitHub credentials and specifying the repo for my app
-  git credentialsId: '32f2c3c2-c19e-431a-b421-a4376fce1186', url: 'https://github.com/sagyvm/game-of-life.git'
+  git credentialsId: '90107d42-aafc-8691-4760-fcfe3594bd50', url: 'https://github.com/sagyvm/game-of-life.git'
   //stage 'Test Code'  
   //sh 'mvn install'
 

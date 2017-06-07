@@ -27,10 +27,10 @@ node ('node_1'){
   
   stage 'Stage image'
  
-        sh "aws ecs update-service --service staging-game  --cluster staging --desired-count 0"
+        sh "aws ecs update-service --service docker-serv  --cluster staging --desired-count 0"
         timeout(time: 5, unit: 'MINUTES') {
             waitUntil {
-                sh "aws ecs describe-services --services staging-game  --cluster staging  > .amazon-ecs-service-status.json"
+                sh "aws ecs describe-services --services docker-serv  --cluster staging  > .amazon-ecs-service-status.json"
 
                 // parse `describe-services` output
                 def ecsServicesStatusAsJson = readFile(".amazon-ecs-service-status.json")
@@ -40,10 +40,10 @@ node ('node_1'){
                 return ecsServiceStatus.get('runningCount') == 0 && ecsServiceStatus.get('status') == "ACTIVE"
             }
         }
-        sh "aws ecs update-service --service staging-game  --cluster staging --desired-count 1"
+        sh "aws ecs update-service --service docker-serv  --cluster staging --desired-count 1"
         timeout(time: 5, unit: 'MINUTES') {
             waitUntil {
-                sh "aws ecs describe-services --services staging-game --cluster staging > .amazon-ecs-service-status.json"
+                sh "aws ecs describe-services --services docker-serv --cluster staging > .amazon-ecs-service-status.json"
 
                 // parse `describe-services` output
                 def ecsServicesStatusAsJson = readFile(".amazon-ecs-service-status.json")

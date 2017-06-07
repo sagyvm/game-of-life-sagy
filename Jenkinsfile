@@ -56,7 +56,7 @@ node ('node_1'){
         timeout(time: 5, unit: 'MINUTES') {
             waitUntil {
                 try {
-                    sh "curl http://34.211.112.138:80"
+                    sh "curl http://54.201.168.46:80"
                     return true
                 } catch (Exception e) {
                     return false
@@ -64,7 +64,7 @@ node ('node_1'){
             }
         }
         echo "gameoflife#${env.BUILD_NUMBER} SUCCESSFULLY deployed to http://52.200.92.100:80"
-        input 'Does staging http://34.211.112.138:80 look okay?'
+        input 'Does staging http://54.201.168.46:80 look okay?'
   
   stage 'Deploy to ECS'
   //Deploy image to production in ECS
@@ -97,13 +97,13 @@ node ('node_1'){
         timeout(time: 5, unit: 'MINUTES') {
             waitUntil {
                 try {
-                    sh "curl http://54.213.85.122:80"
+                    sh "curl http://34.211.143.161:80"
                     return true
                 } catch (Exception e) {
                     return false
                 }
             }
         }
-        echo "gameoflife#${env.BUILD_NUMBER} SUCCESSFULLY deployed to http://54.213.85.122:80"
+        echo "gameoflife#${env.BUILD_NUMBER} SUCCESSFULLY deployed to http://34.211.143.161:80"
     }
   

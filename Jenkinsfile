@@ -26,10 +26,7 @@ node ('node_1'){
   }
   
   stage 'Stage image'
-  //Deploy image to staging in ECS
-  //def buildenv = docker.image('cloudbees/java-build-tools:0.0.7.1')
-  //buildenv.inside {
-    //wrap([$class: 'AmazonAwsCliBuildWrapper', credentialsId: '20f6b2e4-7fbe-4655-8b4b-9842ec81bce2', defaultRegion: 'us-east-1']) {
+ 
         sh "aws ecs update-service --service staging-game  --cluster staging --desired-count 0"
         timeout(time: 5, unit: 'MINUTES') {
             waitUntil {
@@ -109,5 +106,4 @@ node ('node_1'){
         }
         echo "gameoflife#${env.BUILD_NUMBER} SUCCESSFULLY deployed to http://54.213.85.122:80"
     }
-  }
-}
+  
